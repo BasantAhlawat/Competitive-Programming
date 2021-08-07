@@ -1,0 +1,27 @@
+int dist[N],vis[N];
+vvi v(N), newV(N);
+
+void dikstra(int src,int n){
+    dist[src]=0;
+
+    queue<pii> q;
+    q.push(mp(src,0));
+    vis[src]=1;
+
+    while(!q.empty()){
+        pii p=q.front();
+        int curr=p.ss;
+        q.pop();
+        for(auto i:v[p.ff]){
+            if(vis[i]==-1){
+                if(dist[i]>curr+1){
+                    vis[i]=1;
+                    dist[i]=curr+1;
+                    q.push(mp(i,curr+1));
+                }
+            }
+        }
+
+    }
+    return;
+}

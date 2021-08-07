@@ -1,0 +1,39 @@
+ll Arr[N],size1[N];  // just set N
+
+ll root (ll i){
+    while(Arr[ i ] != i)
+    {
+        Arr[ i ] = Arr[ Arr[ i ] ] ; 
+        i = Arr[ i ]; 
+    }
+    return i;
+}
+
+void union1(ll A,ll B){
+    ll root_A = root(Arr,A);
+    ll root_B = root(Arr,B);
+    if(root_A==root_B) return;
+    
+    if(size1[root_A] < size1[root_B ])
+    {
+        Arr[ root_A ] = Arr[root_B];
+        size1[root_B] += size1[root_A];
+    }
+    else
+    {
+        Arr[ root_B ] = Arr[root_A];
+        size1[root_A] += size1[root_B];
+    }
+    return;
+}
+
+void initDsu(){  ///*** set the size of dsu to N before using ***
+    for(ll i = 0;i<N;i++){
+        Arr[ i ] = i ;
+        size1[ i ] = 1;
+    }
+}
+
+
+NOTES:- 
+1. IF after modfication to know the real parent size then the element with condition - Arr[i]==i , are the ultimate parents else they are mapped under something

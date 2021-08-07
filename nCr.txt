@@ -1,0 +1,90 @@
+--> calculate factorial till N in on N time -> NlogN time complexity
+
+// Function to compute a/b under modlo m
+ll modDivide(ll a, ll b, ll m)
+{
+    a = a % m;
+    ll inv = modInverse(b, m);
+    if (inv == -1)
+       return 0;
+    else
+       return (inv * a) % m;
+}
+
+ll nCr(ll n,ll r){
+    if(n<r) return 0;
+    if(n==r) return 1;	
+    // just calculate factorial till N before using it.
+    ll ans=modDivide(fact[n],fact[r],mod);
+    ans=modDivide(ans,fact[n-r],mod);
+    return ans;
+}
+
+------------------
+
+O(N) time nCr
+
+// C++ program to answer queries
+// of nCr in O(1) time.
+
+const int N= 200005;
+ll factorial[N+1];
+ll invfactorial[N+1];
+ll nCr(ll n,ll r){
+    // just calculate factorial till N before using it.
+    if(r>n) return 0;
+    ll ans=((factorial[n] * invfactorial[r] )%mod * invfactorial[n-r] ) %mod;
+    if(ans<0) ans+=mod; 
+    return ans;
+}
+
+void calcFac(){
+	factorial[0] = 1;
+	invfactorial[0] = 1;
+	for (int i = 1; i <= N; i++) {
+    	factorial[i] = factorial[i - 1] * i % mod;
+		invfactorial[i]=modPower(factorial[i],mod-2,mod);
+	}
+}
+ 
+just call ->
+calcFac();
+rep(i,0,t) solve();
+
+
+----------
+
+
+Space and time efficient nCr --> can calulate for N upto 1e9 also in O(1) time
+
+// Program to calculate C(n, k)
+#include <bits/stdc++.h>
+using namespace std;
+
+// Returns value of Binomial Coefficient C(n, k)
+int nCr(int n, int k)
+{
+	int res = 1;
+
+	// Since C(n, k) = C(n, n-k)
+	if (k > n - k)
+		k = n - k;
+
+	// Calculate value of
+	// [n * (n-1) *---* (n-k+1)] / [k * (k-1) *----* 1]
+	for (int i = 0; i < k; ++i) {
+		res *= (n - i);
+		res /= (i + 1);
+	}
+
+	return res;
+}
+
+// Driver Code
+int main()
+{
+	int n = 8, k = 2;
+	cout << "Value of C(" << n << ", "
+		<< k << ") is " << nCr(n, k);
+	return 0;
+}

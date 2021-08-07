@@ -1,0 +1,98 @@
+Prime Factors:-- 
+
+T.C :- sqrt(N) somewhat less than this
+
+LIMIT upto: 1e12
+
+vector<long long> getPrimeFactors(long long n) {
+    vector<long long> factorization;
+    set<ll> s;
+    while (n % 2 == 0) {
+        // factorization.push_back(2);
+        s.insert(2);
+        n /= 2;
+    }
+    for (long long d = 3; d * d <= n; d += 2) {
+        while (n % d == 0) {
+            // factorization.push_back(d);
+            s.insert(d);
+            n /= d;
+        }
+    }
+    if (n > 1){
+        // factorization.push_back(n);
+        s.insert(n);
+    }
+    
+    for(auto i:s) factorization.pb(i);
+        
+    return factorization;
+}
+
+
+Prime factors using sieve:-
+Points to remember: Can be upto 1e7 MAX.
+	call sieve(N) before implementing
+
+vector<int> pr;
+
+void sieve(int n){
+    int lp[n+1];
+    rep(i,0,n+1) lp[i]=0;
+    for (int i=2; i<=n; ++i) {
+        if (lp[i] == 0) {
+            lp[i] = i;
+            pr.push_back (i);
+        }
+        for (int j=0; j<(int)pr.size() && pr[j]<=lp[i] && i*pr[j]<=n; ++j)
+            lp[i * pr[j]] = pr[j];
+    }
+
+}
+
+vector<long long> getPrimeFactors(long long n) {
+    vector<long long> factorization;
+    set<ll>  s;
+    for (long long d : pr) {
+        if (d * d > n)
+            break;
+        while (n % d == 0) {
+            // factorization.push_back(d);
+            s.insert(d);
+            n /= d;
+        }
+    }
+    if (n > 1){
+        // factorization.push_back(n);
+        s.insert(n);
+    }
+    
+    for(auto i:s) factorization.pb(i);
+        
+    return factorization;
+}
+
+
+-----------Find All Divisors--------------
+
+T.C : sqrt(N)
+
+PTR: 1 and N are included in this.
+MAX upto 1e12
+
+vi getDivisors(int n){
+    vi ans;
+    set<int> s;
+    ans.pb(1);
+    rep(i,2,sqrt(n)+1){
+        if(n%i==0) s.insert(i);
+        int sf=n/i;
+        if(n%sf==0 && sf!=1) s.insert(sf);
+    }
+    for(auto i:s) ans.pb(i);
+    
+    ans.pb(n);
+    return ans;
+}
+
+

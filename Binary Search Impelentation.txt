@@ -1,0 +1,52 @@
+#include <bits/stdc++.h>
+#define ll long long
+
+using namespace std;
+
+bool checkValid(ll mid,ll arr[],ll n,ll m){
+    ll curr=0;
+    
+    for(int i=0;i<n;i++){
+        if(arr[i]<=mid) continue;
+        curr+=(arr[i]-mid);
+    }
+    if(curr>=m) return true;
+    return false;
+}
+
+int main()
+{
+    // int t;
+    // cin>>t;
+    // while(t--){
+        ll n,m;
+        cin>>n>>m;
+        
+        ll arr[n];
+        for(int i=0;i<n;i++) cin>>arr[i];
+        
+        
+        // search space
+        ll l=0,r=2000000000,ans=0;
+        
+        while(l<=r){
+            ll mid=l+((r-l)/2);
+            //cout<<mid<<"\n";
+            bool check=checkValid(mid,arr,n,m);
+            
+            if(check){
+                // it was a valid path -> now try further minimizing the dist.
+                //cout<<"got here\n";
+                ans=max(mid,ans);
+                l=mid+1;
+            }
+            else r=mid-1;
+            
+        }
+        
+        cout<<ans<<"\n";
+        
+    //}
+    
+    return 0;
+}

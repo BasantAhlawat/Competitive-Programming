@@ -1,0 +1,37 @@
+it.begin() -> first element of the container , and its value-> 0
+it.end() -> points to the NEXT OF last element, its value-> last+1 (so it does not have any value assigned to it, so handle carefully)
+
+LowerBound and UpperBOund can be implemented on vector, set, map.
+
+Syntax for vector :- upper_bound(vec1.begin(),vec1.end(), value_to_find)
+lower_bound(vec1.begin(),vec1.end(), value_to_find)
+
+LowerBound:- The function returns the iterator pointing to next smallest number just greater or EQUAL to that number.
+
+Input: 10 20 30 40 50
+Output: lower_bound for element 30 at index 2
+
+Input: 10 20 30 40 50
+Output: lower_bound for element 35 at index 3
+
+Input: 10 20 30 40 50
+Output: lower_bound for element 55 at index 5
+
+Input: 10 20 30 30 30 40 50
+Output: lower_bound for element 30 at index 2
+
+
+UpperBound:- The function returns the iterator pointing to the smallest number STRICTLY GREATER TO the current number.
+
+Input : 10 20 30 30 40 50
+Output : upper_bound for element 30 is at index 4
+
+Input : 10 20 30 40 50
+Output : upper_bound for element 45 is at index 4
+
+Input : 10 20 30 40 50
+Output : upper_bound for element 60 is at index 5
+
+USES:- 
+To find the element just smaller than the current element do: idx = lower_bound(vec.begin,vec.end, val)
+		idx--;  <--- because idx would point to the value just equal to greater than val, decreasing it by one gives the just smaller element index.
